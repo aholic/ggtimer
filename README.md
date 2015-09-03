@@ -26,7 +26,7 @@ eg.
     	lck := &sync.Mutex{}
     	cnt := 0
     
-    	tmr := NewTimer(5*time.Second, func(time.Time) {
+    	tmr := ggtimer.NewTimer(5*time.Second, func(time.Time) {
     		lck.Lock()
     		defer lck.Unlock()
     		cnt++
@@ -39,7 +39,7 @@ eg.
     	}
     
     	cnt = 0
-    	tmr = NewTimer(1*time.Second, func(time.Time) {
+    	tmr = ggtimer.NewTimer(1*time.Second, func(time.Time) {
     		lck.Lock()
     		defer lck.Unlock()
     		cnt++
