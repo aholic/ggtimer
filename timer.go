@@ -1,10 +1,20 @@
-package timer
+package ggtimer
 
 import "time"
 
 type TimeCallbackFunc func(time.Time)
+type GGTimer chan bool
+type GGTicker chan bool
 
-func NewTicker(d time.Duration, f TimeCallbackFunc) chan bool {
+func (t GGTimer) Close() {
+	close(t)
+}
+
+func (t GGTicker) Close() {
+	close(t)
+}
+
+func NewTicker(d time.Duration, f TimeCallbackFunc) GGTicker {
 	done := make(chan bool, 1)
 	go func() {
 		t := time.NewTicker(d)
@@ -22,7 +32,7 @@ func NewTicker(d time.Duration, f TimeCallbackFunc) chan bool {
 	return done
 }
 
-func NewTimer(d time.Duration, f TimeCallbackFunc) chan bool {
+func NewTimer(d time.Duration, f TimeCallbackFunc) GGTimer {
 	done := make(chan bool, 1)
 	go func() {
 		t := time.NewTimer(d)
